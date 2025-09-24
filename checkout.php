@@ -15,6 +15,7 @@
       <link rel="stylesheet" type="text/css" href="./assets/css/style-new.css">
       <link rel="stylesheet" type="text/css" href="./assets/css/checkout-new.css">
       <link rel="stylesheet" type="text/css" href="./assets/css/inline-style.css?v=<?php echo time(); ?>">
+      <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.23.0/dist/sweetalert2.min.css" rel="stylesheet">
       <style>
      button.btn-bnrhm1.pulse.chnginput {
     cursor: pointer;
@@ -492,6 +493,7 @@
       <div class="safebuy-corner"></div>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
       <script src="./assets/js/flipclock.js" type="text/javascript"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.23.0/dist/sweetalert2.all.min.js"></script>
       <script>
          var clock = $('.clock').FlipClock(600, {
          
@@ -650,7 +652,13 @@
                         arr.push("Please enter valid cvv!");
                     }
                     if(arr.length > 0){
-                        alert(arr.join("\n"));
+                        let dataArray = arr.join("<br>");
+                        Swal.fire({
+                           icon: "error",
+                           title: "Oops...",
+                           html: dataArray
+                        });
+                        //alert(arr.join("\n"));
                     }else{
 
                         $.ajax({
