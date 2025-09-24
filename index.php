@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/checkout.css">
     <link rel="stylesheet" href="assets/css/media.css">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.23.0/dist/sweetalert2.min.css" rel="stylesheet">
     <style>
         body{
             overflow-x: hidden;
@@ -717,6 +718,7 @@
     <!--end popup loading wrapper-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="assets/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.23.0/dist/sweetalert2.all.min.js"></script>
     <script>
         $(window).on('load',function(){
             $.ajax({
@@ -776,7 +778,13 @@
             }
             //alert(arr);
             if(arr.length > 0){
-                alert(arr.join("\n"));
+                let dataArray = arr.join("<br>");
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    html: dataArray
+                });
+                //alert(arr.join("\n"));
             } else{
                 $.ajax({
                     url: 'ajaxHandler.php',
