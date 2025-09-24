@@ -1,12 +1,14 @@
 <?php
     session_start();
-    $order_id = $_SESSION["checkout"]["data"]["attributes"]["number"];
-    $firstName = $_SESSION["checkout"]["data"]["attributes"]["ship_first_name"];
-    $lastName = $_SESSION["checkout"]["data"]["attributes"]["ship_last_name"];
-    $shippingAddress = $_SESSION["checkout"]["data"]["attributes"]["ship_address1"];
-    $shippingCity = $_SESSION["checkout"]["data"]["attributes"]["ship_city"];
-    $shippingState = $_SESSION["checkout"]["data"]["attributes"]["ship_state"];
-    $shippingZip = $_SESSION["checkout"]["data"]["attributes"]["ship_postal_code"];
+    if(isset($_SESSION) && !empty($_SESSION)){
+        $order_id = $_SESSION["checkout"]["data"]["attributes"]["number"]?? "N/A";
+        $firstName = $_SESSION["checkout"]["data"]["attributes"]["ship_first_name"]?? "N/A";
+        $lastName = $_SESSION["checkout"]["data"]["attributes"]["ship_last_name"]?? "N/A";
+        $shippingAddress = $_SESSION["checkout"]["data"]["attributes"]["ship_address1"]?? "N/A";
+        $shippingCity = $_SESSION["checkout"]["data"]["attributes"]["ship_city"]?? "N/A";
+        $shippingState = $_SESSION["checkout"]["data"]["attributes"]["ship_state"]?? "N/A";
+        $shippingZip = $_SESSION["checkout"]["data"]["attributes"]["ship_postal_code"]?? "N/A";
+    }
 ?>
 <html lang="en">
    <head>
