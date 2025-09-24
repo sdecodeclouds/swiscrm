@@ -8,6 +8,14 @@
         $shippingCity = $_SESSION["checkout"]["data"]["attributes"]["ship_city"]?? "N/A";
         $shippingState = $_SESSION["checkout"]["data"]["attributes"]["ship_state"]?? "N/A";
         $shippingZip = $_SESSION["checkout"]["data"]["attributes"]["ship_postal_code"]?? "N/A";
+    }else{
+      $order_id = "N/A";
+      $firstName = "N/A";
+      $lastName = "N/A";
+      $shippingAddress = "N/A";
+      $shippingCity = "N/A";
+      $shippingState = "N/A";
+      $shippingZip = "N/A";
     }
 ?>
 <html lang="en">
