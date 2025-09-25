@@ -3,13 +3,30 @@
     if(isset($_SESSION) || !empty($_SESSION)){
         session_destroy();
     }
+
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === "on" ? 'https://' : 'http://';
+    $hostname = $_SERVER["HTTP_HOST"];
+    $request_uri = parse_url($_SERVER["REQUEST_URI"],PHP_URL_PATH);
+
+    $complete_url = $protocol.$hostname.$request_uri;
+    //print_r($complete_url);
+
  
     $affid = (!empty($_GET["affid"]))?$_GET["affid"]:null;
     $c1 = (!empty($_GET["c1"]))?$_GET["c1"]:null;
     $c2 = (!empty($_GET["c2"]))?$_GET["c2"]:null;
     $c3 = (!empty($_GET["c3"]))?$_GET["c3"]:null;
-    $sub5 = (!empty($_GET["sub5"]))?$_GET["sub5"]:null;;
+    $sub5 = (!empty($_GET["sub5"]))?$_GET["sub5"]:null;
     $c5 = (!empty($_GET["c3"]))?$_GET["c3"]:null;
+    $getKeys = ["affid","c1","c2","c3"];
+    $arrCopied = $_GET;
+    for($i = 0;$i<count($getKeys);$i++){
+        if(isset($arrCopied[$getKeys[$i]])){
+            unset($arrCopied[$getKeys[$i]]);
+        }
+    }
+    $arrCopied["offer_url"] = $complete_url;
+    $newArray = json_encode($arrCopied);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,9 +38,7 @@
     <meta name="Slurp" content="noindex" />
     <link rel="icon" href="assets/images/Favicon.png?v=32" type="image/x-icon">
     <title>Blood Support</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;700;800&amp;family=Source+Sans+Pro&amp;display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;700;800&amp;family=Source+Sans+Pro&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/checkout.css">
     <link rel="stylesheet" href="assets/css/media.css">
@@ -731,7 +746,8 @@
                     c3: "<?=$c3?>",
                     c5: "<?=$c5?>",
                     affid: "<?=$affid?>",
-                    sub5: "<?=$sub5?>"
+                    sub5: "<?=$sub5?>",
+                    additionalParams: '<?=$newArray?>'
                 },
                 success:function(response){
                     console.log(response);
@@ -828,7 +844,12 @@
                                 }
                             })
                         }else{
-                            alert("Email Exists. Please try with different one!");
+                            Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: "Email Exists. Please try with different one!"
+                            });
+                            //alert("Email Exists. Please try with different one!");
                             return false;
                         }
                     }
