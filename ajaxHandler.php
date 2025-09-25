@@ -26,13 +26,10 @@
             $c1 = (!empty($_POST["c1"]))?$_POST["c1"]:null;
             $c2 = (!empty($_POST["c2"]))?$_POST["c2"]:null;
             $c3 = (!empty($_POST["c3"]))?$_POST["c3"]:null;
-            $sub5 = (!empty($_POST["sub5"]))?$_POST["sub5"]:null;;
-            $c5 = (!empty($_POST["c3"]))?$_POST["c3"]:null;
             $ip = $res["ip"];
             $country_code = $res["cc"];
             $requestType = trim($_POST['requestType']);
-            // print_r($_POST);
-            // die();
+            $additionalParams = (!empty($_POST["additionalParams"]))?$_POST["additionalParams"]:null;
 
             // Creating Everflow API object
             $sc = new scAPI();
@@ -44,10 +41,7 @@
                         "c1"=> $c1,
                         "c2"=> $c2,
                         "c3"=> $c3,
-                        "additional_passed_values"=> [
-                            "sub5"=> $sub5,
-                            "c5"=> $c5
-                        ],
+                        "additional_passed_values"=> json_decode($additionalParams,true),
                         "campaign_id"=> 2,
                         "ip_address"=> $ip,
                         "geo_state"=> $country_code,
@@ -55,6 +49,7 @@
                         "device"=> "Chrome"
                         ]
                     ];
+                    print_r($payload);
                     $response = $sc->createClick($payload);
                     $_SESSION["click_details"] = $response;
 
