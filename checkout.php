@@ -681,7 +681,12 @@
                               //console.log(response);
                               let res = JSON.parse(response);
                               if(res.error || res.errors){
-                                 alert(res.error);
+                                 let err = res.error+"!";
+                                 Swal.fire({
+                                    icon: "error",
+                                    title: "Oops...",
+                                    text: err
+                                 });
                               }else{
                                  const queryString = window.location.search;
                                  window.location.href = "upsell1.php"+queryString;
